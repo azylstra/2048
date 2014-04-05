@@ -3,7 +3,8 @@ import os
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 def root_dir():  # pragma: no cover
-    return os.path.abspath(os.path.dirname(__file__))
+    return ''
+    #return os.path.abspath(os.path.dirname(__file__))
 
 def get_file(filename):  # pragma: no cover
     try:
