@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Iron</title>
+
+  <link rel="stylesheet" href="style/bootstrap.css" type="text/css">
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+</head>
+<body>
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">Iron</h1>
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+    <div class="above-game">
+      <p class="game-intro">You're a star! Burn protons to eventually create <strong>Fe</strong></p>
+      <br><br>
+      <div class="btn-group" id="difficulty">
+        <button type="button" class="btn btn-default" data-value="0.7">Easy</button>
+        <button type="button" class="btn btn-default active" data-value="0.85">Medium</button>
+        <button type="button" class="btn btn-default" data-value="0.95">Hard</button>
+        <button type="button" class="btn btn-default" data-value="0.98">Impossible</button>
+      </div>
+      <br>
+      <a class="restart-button">New Game</a>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Keep going</a>
+          <a class="retry-button">Try again</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+
+    <p class="game-explanation">
+      <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles that can fuse touch, they do!
+    </p>
+    <hr>
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+              Physics Comments
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+          <div class="panel-body">
+            Currently implemented are the <a href="http://en.wikipedia.org/wiki/Proton-proton_chain">proton-proton I chain</a>, <a href="http://en.wikipedia.org/wiki/Triple-alpha_process">triple-alpha process</a>, <a href="http://en.wikipedia.org/wiki/CNO_cycle#CNO-I">CNO-I process</a>, <a href="http://en.wikipedia.org/wiki/Alpha_process">alpha-burning (alpha-ladder) process</a>, <a href="http://en.wikipedia.org/wiki/Carbon_burning_process">Carbon burning</a>, and <a href="http://en.wikipedia.org/wiki/Oxygen_burning_process">Oxygen burning</a>.
+            <br>
+            Note that the last step of the alpha ladder actually produces 56Ni, which subsequently decays to 56Fe! There are other steps (such as in CNO) that also involve &beta; decays. This is an incomplete but hopefully fun overview of nucleosynthesis!
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+              Reactions
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <div class="panel-body">
+            <list>
+              <h3>Proton-Proton Chain</h3>
+              <li id="perc">p + p &rarr; D 15%</li>
+              <li>D + p &rarr; 3He</li>
+              <li>3He + 3He &rarr; 4He + p + p</li>
+              <h3>Triple-alpha</h3>
+              <li>4He + 4He &rarr; 8Be</li>
+              <li>8Be + 4He &rarr; 12C</li>
+              <h3>CNO cycle</h3>
+              <li>p + 12C &rarr; 13C (after &beta; decay)</li>
+              <li>p + 13C &rarr; 14N</li>
+              <li>p + 14N &rarr; 15N (after &beta; decay)</li>
+              <li>p + 15N &rarr; 12C + 4He</li>
+              <h3>Alpha burning</h3>
+              <li>12C + 4He &rarr; 16O</li>
+              <li>16O + 4He &rarr; 20Ne</li>
+              <li>20Ne + 4He &rarr; 24Mg</li>
+              <li>24Mg + 4He &rarr; 28Si</li>
+              <li>28Si + 4He &rarr; 32S</li>
+              <li>32S + 4He &rarr; 36Ar</li>
+              <li>36Ar + 4He &rarr; 40Ca</li>
+              <li>40Ca + 4He &rarr; 44Ti</li>
+              <li>44Ti + 4He &rarr; 48Cr</li>
+              <li>48Cr + 4He &rarr; 52Fe</li>
+              <li>52Fe + 4He &rarr; 56Fe (after &beta; decays!)</li>
+              <h3>Carbon and Oxygen burning</h3>
+              <li>12C + 12C &rarr; 20Ne + 4He</li>
+              <li>16O + 16O &rarr; 28Si + 4He</li>
+            </list>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <p>
+    Created by <a href="http://azylstra.net" target="_blank">Alex Zylstra.</a> Based on (and forked from) the popular <a href="https://github.com/gabrielecirulli/2048" target="_blank">2048 by Gabriele Cirulli</a>.
+    </p>
+  </div>
+
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/application.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/difficulty.js"></script>
+
+</body>
+</html>
