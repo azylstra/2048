@@ -1,6 +1,7 @@
 from flask import Flask, Response
 import os
-app = Flask(__name__, static_folder='static', static_url_path='')
+#app = Flask(__name__, static_folder='static', static_url_path='')
+app = Flask(__name__)
 
 def root_dir():  # pragma: no cover
     return ''
@@ -19,11 +20,18 @@ def get_file(filename):  # pragma: no cover
         return str(exc)
 
 @app.route('/')
-def hello_world():
+def main_app():
 	content = get_file('index.html')
 	return Response(content, mimetype="text/html")
 
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 80))
-    app.run(host='0.0.0.0', port=port, debug=True)
+@app.errorhandler(404)
+def page_not_found(e):
+    """Return a custom 404 error."""
+    return 'Sorry, Nothing at this URL.', 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    """Return a custom 500 error."""
+    return 'Sorry, unexpected error: {}'.format(e), 500

@@ -152,6 +152,8 @@ GameManager.prototype.move = function (direction) {
   var vector     = this.getVector(direction);
   var traversals = this.buildTraversals(vector);
   var moved      = false;
+  var merged     = false;
+  var failedMerge = false;
 
   // Save the current tile positions and remove merger information
   this.prepareTiles();
@@ -176,7 +178,11 @@ GameManager.prototype.move = function (direction) {
             doMerge = ran < (1.0 - self.difficulty) ? true : false;
           }
 
+          merged = true;
+          failedMerge = failedMerge || !doMerge;
+
           if(doMerge) {
+            somethingDone = true;
             var mergedVal = self.getMergeVal(tile, next);
             var merged = new Tile(positions.next, mergedVal);
             merged.mergedFrom = [tile, next];
@@ -210,19 +216,10 @@ GameManager.prototype.move = function (direction) {
               self.won = true;
           }
           else {
-            if(!self.movesAvailable()) {
-              console.log('over2');
-              self.over = true; // game over
-            }
-            else {
-              self.moveTile(tile, positions.farthest);
-              moved = true;
-            }
-            self.actuate();
+            self.moveTile(tile, positions.farthest);
           }
         } else {
           self.moveTile(tile, positions.farthest);
-          moved = true;
         }
 
         if (!self.positionsEqual(cell, tile)) {
@@ -241,6 +238,14 @@ GameManager.prototype.move = function (direction) {
 
     this.actuate();
   }
+  else {
+    if(!merged && failedMerge && self.grid.availableCells().length == 0) {
+      console.log('over3');
+      this.over = true;
+    }
+    this.actuate();
+  }
+
 };
 
 // Get the vector representing the chosen direction
@@ -399,6 +404,26 @@ var mergeSecondaryValues =
     'p15N': ['4He'],
     '12C12C': ['4He'],
     '16O16O': ['4He']};
+
+var htmlText =
+  {'3He': '<tilesup>3</tilesup>He', //'&sup3;He'
+  '4He': '<tilesup>4</tilesup>He',
+  '8Be': '<tilesup>8</tilesup>Be',
+  '12C': '<tilesup>12</tilesup>C',
+  '13C': '<tilesup>13</tilesup>C',
+  '14N': '<tilesup>14</tilesup>N',
+  '15N': '<tilesup>15</tilesup>N',
+  '16O': '<tilesup>16</tilesup>O',
+  '20Ne': '<tilesup>20</tilesup>Ne',
+  '24Mg': '<tilesup>24</tilesup>Mg',
+  '28Si': '<tilesup>28</tilesup>Si',
+  '32S': '<tilesup>32</tilesup>S',
+  '36Ar': '<tilesup>36</tilesup>Ar',
+  '40Ca': '<tilesup>40</tilesup>Ca',
+  '44Ti': '<tilesup>44</tilesup>Ti',
+  '48Cr': '<tilesup>48</tilesup>Cr',
+  '52Fe': '<tilesup>52</tilesup>Fe',
+  '56Fe': '<tilesup>56</tilesup>Fe'};
 
 GameManager.prototype.checkMergeable = function(first, second) {
   ret = false;
